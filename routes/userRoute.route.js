@@ -17,7 +17,7 @@ userRoute.get("/",async(req,res)=>{
 userRoute.post("/register",async(req,res)=>{
     const {name,email,gender,pass,age,city,is_married}=req.body
     try {
-        const existUser=await Usermodel.findOne({email})
+        const existUser=await Usermodel.find({email})
         if(existUser){
             return res.status(400).json({msg:"User already exist, please login"})
         }
@@ -40,7 +40,7 @@ userRoute.post("/register",async(req,res)=>{
 
 userRoute.post("/login",async(req,res)=>{
     try {
-        const {email,pass,name}=req.body
+        const {email,pass}=req.body
         const user=await Usermodel.findOne({email})
         if(user){
             bcrypt.compare(pass, user.pass, async(err, result)=>{
@@ -50,7 +50,7 @@ userRoute.post("/login",async(req,res)=>{
                     return res.status(200).json({msg:"login successfully",token,user})
                 }
                 else{
-                    return res.status(400).json({msg:"wrong credential"})
+                    return res.status(400).json({msg:"wrong credential",err})
                 }
             });
         }

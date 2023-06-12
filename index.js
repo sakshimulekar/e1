@@ -12,7 +12,7 @@ app.use(cors())
 app.use("/users",userRoute)
 app.use("/posts",postRoute)
 
-app.get("/",async(req,res)=>{
+app.get("/home",async(req,res)=>{
     try {
         
         res.status(200).json({msg:"home page",user})
