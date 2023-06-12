@@ -11,6 +11,16 @@ const { postRoute } = require("./routes/postRoute.route")
 app.use(cors())
 app.use("/users",userRoute)
 app.use("/posts",postRoute)
+
+app.get("/",async(req,res)=>{
+    try {
+        
+        res.status(200).json({msg:"home page",user})
+    } catch (error) {
+        res.status(200).json({msg:error})
+    }
+})
+
 app.listen(process.env.port,async()=>{
     try {
         await connection
